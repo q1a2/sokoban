@@ -1,12 +1,23 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Instructions</router-link> |
+      <router-link to="/levels">Levels</router-link> |
+      <router-link to="/editor">Editor</router-link>
     </div>
-    <router-view/>
+    <hr/>
+    <router-view class="mainPage"/>
+    <div class="footer">
+      <p class="github-link"><a href="https://github.com/BYU-CS-260-Winter-2021/lab-1-photography-website-q1a2">Github Link</a></p>
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+}
+</script>
 
 <style>
 #app {
@@ -14,7 +25,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #2c2c2c;
+  background-color: #7f7f7f;
 }
 
 #nav {
@@ -23,10 +35,27 @@
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #2c2c2c;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #525252;
+}
+
+.mainPage {
+  min-height: 415px;
+}
+
+.footer {
+  height: 200px;
+  background-color: #c0c0c0;
+}
+
+.github-link {
+  height: 0px;
+  font-size: 18px;
+  padding-top: 93px;
+  align-self: center;
+  text-align: center;
 }
 </style>
