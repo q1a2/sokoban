@@ -74,7 +74,7 @@ export default {
         }
       },
       reset() {
-      this.moves = 0;
+        this.moves = 0;
         this.$root.$data.currentState = JSON.parse(JSON.stringify(this.$root.$data.currentLevel.tiles));
       }
   },

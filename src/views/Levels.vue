@@ -76,7 +76,7 @@ export default {
   display: flex;
   margin: 10px auto;
   justify-content: center;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
 
 .level {
