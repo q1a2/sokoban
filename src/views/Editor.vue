@@ -59,8 +59,9 @@ export default {
       }
 
       this.$root.$data.levelList.push(this.$root.$data.currentLevel);
-      this.error = "Level saved successfully.";
       this.reset();
+      this.error = "Level saved successfully.";
+
     },
     switchType(newType) {
       this.currentType = newType;
