@@ -8,7 +8,7 @@
     <hr/>
     <router-view class="mainPage"/>
     <div class="footer">
-      <p class="github-link"><a href="https://github.com/BYU-CS-260-Winter-2021/lab-1-photography-website-q1a2">Github Link</a></p>
+      <p class="github-link"><a href="https://github.com/q1a2/sokoban">Github Link</a></p>
     </div>
   </div>
 </template>
@@ -44,9 +44,11 @@ export default {
 
 .mainPage {
   min-height: 415px;
+  margin: 15px;
 }
 
 .footer {
+  margin-top: 15px;
   height: 200px;
   background-color: #c0c0c0;
 }
