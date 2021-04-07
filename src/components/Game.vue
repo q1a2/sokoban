@@ -19,6 +19,7 @@
 
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Game',
   props: {
@@ -80,6 +81,28 @@ export default {
   },
   created: function() {
     this.moves = 0;
+  },
+  watch: {
+    victory: async function(myVar) {
+      if(myVar === true) {
+        if(this.moves > this.$root.$data.currentLevel.minMoves) {
+          this.$root.$data.currentUser.completedLevels++;
+          await axios.put("/api/beatLevel",{
+            name: this.$root.$data.currentUser.name,
+            levels: this.$root.$data.currentUser.completedLevels,
+          });
+        }
+        else {
+          this.$root.$data.currentUser.completedLevels++;
+          this.$root.$data.currentUser.perfectLevels++;
+          await axios.put("/api/beatPerfectly",{
+            name: this.$root.$data.currentUser.name,
+            levels: this.$root.$data.currentUser.completedLevels,
+            perfectLevels: this.$root.$data.currentUser.perfectLevels,
+          });
+        }
+      }
+    }
   }
 }
 </script>

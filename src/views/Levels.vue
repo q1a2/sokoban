@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Game from "../components/Game.vue"
 export default {
   name: 'Levels',
@@ -47,6 +48,9 @@ export default {
       return this.$root.$data.levelList.filter(level => level.creator === "default");
     },
     userLevels() {
+      if(this.$root.$data.currentUser != null) {
+        return this.$root.$data.levelList.filter(level => level.creator === this.$root.$data.currentUser.username);
+      }
       return this.$root.$data.levelList.filter(level => level.creator === "user");
     }
   },
@@ -56,7 +60,11 @@ export default {
       this.$root.$data.currentState = JSON.parse(JSON.stringify(level.tiles));
       this.playing = true;
     },
-    remove(level) {
+    async remove(level) {
+      console.log({creator: level.creator, name: level.name});
+      let test = {creator: level.creator, name: level.name};
+      console.log(test);
+      await axios.delete("/api/deleteLevel/" + level.creator + "/" + level.name);
       level.creator = "none";
       level.name = "";
     }

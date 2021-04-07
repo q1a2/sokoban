@@ -8,7 +8,8 @@ Vue.config.productionTip = false
 let data = {
   currentState: [],
   currentLevel: [],
-  levelList: levels
+  levelList: levels,
+  currentUser: null
 }
 
 console.log(data.currentState)

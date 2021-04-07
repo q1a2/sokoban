@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Instructions from '../views/Instructions.vue'
+import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Instructions',
-    component: Instructions
+    name: 'Login',
+    component: Login
   },
   {
     path: '/levels',

@@ -14,12 +14,14 @@
         <img :src="'../images/tiles/'+tile.type+'.png'" @click="edit(tile)"/>
       </a>
     </div>
-    <button @click="save()">Save</button>
+    <p style="color:#df2020" v-if="$root.$data.currentUser == null">Make sure to log in to save your levels!</p>
+    <button @click="save()" v-else>Save</button>
     <p>{{error}}</p>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'Editor',
   props: {
@@ -46,7 +48,7 @@ export default {
       }
       tile.type = this.currentType;
     },
-    save() {
+    async save() {
       if(this.$root.$data.currentLevel.name === "") {
         this.error = "Please Choose a Level Title First.";
         return;
@@ -59,6 +61,14 @@ export default {
       }
 
       this.$root.$data.levelList.push(this.$root.$data.currentLevel);
+      console.log(this.$root.$data.currentLevel);
+      await axios.post("/api/newLevel",{
+        id: this.$root.$data.currentLevel.id,
+        name: this.$root.$data.currentLevel.name,
+        minMoves: this.$root.$data.currentLevel.minMoves,
+        creator: this.$root.$data.currentLevel.creator,
+        tiles: this.$root.$data.currentLevel.tiles
+      });
       this.reset();
       this.error = "Level saved successfully.";
 
@@ -87,7 +97,10 @@ export default {
       }
       let id = this.$root.$data.levelList[this.$root.$data.levelList.length - 1].id + 1;
 
-      this.$root.$data.currentLevel = { id: id, name: "", minMoves: 1000, creator: "user", tiles: idMap }
+      this.$root.$data.currentLevel = { id: id, name: "", minMoves: 1000, creator: "", tiles: idMap };
+      if(this.$root.$data.currentUser != null) {
+        this.$root.$data.currentLevel.creator = this.$root.$data.currentUser.username;
+      }
     }
   },
   created: function() {
