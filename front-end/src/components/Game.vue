@@ -85,16 +85,17 @@ export default {
   watch: {
     victory: async function(myVar) {
       if(myVar === true) {
+        console.log(this.moves + " ? " + this.$root.$data.currentLevel.minMoves);
         if(this.moves > this.$root.$data.currentLevel.minMoves) {
           this.$root.$data.currentUser.completedLevels++;
           await axios.put("/api/beatLevel",{
-            name: this.$root.$data.currentUser.name,
+            name: this.$root.$data.currentUser.username,
             levels: this.$root.$data.currentUser.completedLevels,
           });
         }
         else {
           this.$root.$data.currentUser.completedLevels++;
-          this.$root.$data.currentUser.perfectLevels++;
+          this.$root.$data.currentUser.minMoveLevels++;
           await axios.put("/api/beatPerfectly",{
             name: this.$root.$data.currentUser.name,
             levels: this.$root.$data.currentUser.completedLevels,

@@ -85,9 +85,11 @@ export default {
     },
     async updatePass() {
       try {
+        console.log(this.$root.$data.currentUser);
+        console.log(this.$root.$data.currentUser.username);
         let response = await axios.put("/api/updatePassword",{
-          name: this.$root.$data.currentUser.name,
-          pass: this.pass,
+          username: this.$root.$data.currentUser.username,
+          password: this.pass
         });
         if(response.data.error == undefined) {
           return true;
@@ -102,9 +104,8 @@ export default {
     },
     async deleteAccount() {
       try {
-        let response = await axios.delete("/api/deleteUser",{
-          name: this.$root.$data.currentUser.name,
-        });
+        console.log(this.$root.$data.currentUser.username);
+        let response = await axios.delete("/api/deleteUser/" + this.$root.$data.currentUser.username);
         if(response.data.error == undefined) {
           this.$root.$data.currentUser = null;
           return true;

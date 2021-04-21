@@ -88,7 +88,7 @@ app.post('/api/login', async (req, res) => {
 app.put('/api/updatePassword', async (req, res) => {
   try {
     await User.findOneAndUpdate(
-      {username: req.body.name},
+      {username: req.body.username},
       {"$set":{"password": req.body.password}}
     );
     res.sendStatus(200);
@@ -98,10 +98,10 @@ app.put('/api/updatePassword', async (req, res) => {
   }
 });
 
-app.delete('/api/deleteUser', async (req, res) => {
+app.delete('/api/deleteUser/:username', async (req, res) => {
   try {
     await User.deleteOne({
-      username: req.body.name,
+      username: req.params.username,
     });
     res.sendStatus(200);
   } catch (error) {
@@ -174,43 +174,5 @@ app.delete('/api/deleteLevel/:creator/:name', async (req, res) => {
     res.sendStatus(500);
   }
 });
-
-/*// Get a list of all of the items in the museum.
-app.get('/api/items', async (req, res) => {
-  try {
-    let items = await Item.find();
-    res.send(items);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
-
-// Delete an item.
-app.delete('/api/items/:id', async (req, res) => {
-  try {
-    await Item.deleteOne({
-      _id: req.params.id
-    });
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
-
-// Edit an item.
-app.put('/api/items/:id', async (req, res) => {
-  try {
-    let item = await Item.findOneAndUpdate(
-      {_id: req.params.id},
-      {"$set":{"title": req.body.title, "description": req.body.description}}
-    );
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});*/
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
