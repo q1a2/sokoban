@@ -22,6 +22,9 @@
       <button @click="updatePass()" href="#">Change</button>
       <button @click="deleteAccount()" href="#">Delete Account</button>
     </div>
+    <div class="buttons">
+      <button @click="logout()" href="#">Log Out</button>
+    </div>
   </div>
 </div>
 </template>
@@ -117,11 +120,36 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async logout() {
+      try {
+        let response = await axios.delete("/api/currentUser/");
+        if(response.data.error == undefined) {
+          this.$root.$data.currentUser = null;
+          return true;
+        }
+        else {
+          this.error = response.data.error;
+          return false;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  async created() {
+    try {
+      let response = await axios.get('/api/currentUser/');
+      this.$root.$data.currentUser = response.data.user;
+    } catch (error) {
+      this.$root.$data.currentUser = null;
     }
   }
 }
 </script>
 
 <style scoped>
-
+.buttons {
+  margin-bottom: 5px;
+}
 </style>
